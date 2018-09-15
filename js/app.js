@@ -81,7 +81,7 @@ class Player {
   }
   // method to change character
   changeChar(name){
-    switch(name): {
+    switch(name)  {
         case 'catgirl':
             this.level = 2;
             this.character = 'Cat Girl';
