@@ -1,3 +1,4 @@
+"use strict";
 // variables of game
 let player,
     allEnemies = [],
@@ -50,13 +51,13 @@ class Player {
   // check collision where the player lost lives
   checkCollisions() {
       for ( var index=0; index < allEnemies.length; index++) {
-        if ( allEnemies[index].x < player.x + 50 && allEnemies[index].x > player.x - 50 ){
-          if ( allEnemies[index].y < player.y + 45 && allEnemies[index].y > player.y - 45 ){
-            player.x = 200;
-            player.y = 400;
-            player.lives--;
-            if( player.lives === 0 ){
-              player.score = 0;
+        if ( allEnemies[index].x < this.x + 50 && allEnemies[index].x > this.x - 50 ){
+          if ( allEnemies[index].y < this.y + 45 && allEnemies[index].y > this.y - 45 ){
+            this.x = 200;
+            this.y = 400;
+            this.lives--;
+            if( this.lives === 0 ){
+              this.score = 0;
               lost = true;
             }
           };
@@ -78,62 +79,63 @@ class Player {
   		ctx.drawImage(Resources.get(this.livesImage), i*40+340, 540, 40, 45 );
     }
   }
-  // up level 2 and change the character Cat Girl
-  changeCatGirl(){
-      player.level = 2;
-      player.character = "Cat Girl";
-      player.sprite = "images/char-cat-girl.png";
-  }
-  // up level 3 and change the character Horn Girl
-  changeHornGirl(){
-      player.level = 3;
-      player.character = "Horn Girl";
-      player.sprite = "images/char-horn-girl.png";
-  }
-  // up level 4 and change the character Pink Girl
-  changePinkGirl(){
-      player.level = 4;
-      player.character = "Pink Girl";
-      player.sprite = "images/char-pink-girl.png";
-  }
-  // up level 5 and change the character Princess Girl
-  changePrincessGirl(){
-      player.level = 5;
-      player.character = "Pricess Girl";
-      player.sprite = "images/char-princess-girl.png";
+  // method to change character
+  changeChar(name){
+    switch(name): {
+        case 'catgirl':
+            this.level = 2;
+            this.character = 'Cat Girl';
+            this.sprite = 'images/char-cat-girl.png';
+            break;
+        case 'horn':
+            this.level = 3;
+            this.character = 'Horn Girl';
+            this.sprite = 'images/char-horn-girl.png';
+            break;
+        case 'pink':
+            this.level = 4;
+            this.character = 'Pink Girl';
+            this.sprite = 'images/char-pink-girl.png';
+            break;
+        case 'princess':
+            this.level = 5;
+            this.character = 'Pricess Girl';
+            this.sprite = 'images/char-princess-girl.png';
+            break;
+    }
   }
   //logic when the character move to different directions
   handleInput(key){
-    if ( key == 'left' ){
+    if ( key === 'left' ){
   		this.x = this.x - 100;
   		if ( this.x < 0 ){
   			this.x = 0;
   		};
   	};
-  	if ( key == 'right' ){
+  	if ( key === 'right' ){
   		this.x = this.x + 100;
   		if ( this.x > 400 ){
   			this.x = 400;
   		};
   	};
-  	if ( key == 'up' ){
+  	if ( key === 'up' ){
   		this.y = this.y - 90;
   		if ( this.y < 0 ){
   			this.y = 400;
   			this.x = 200;
         this.score+=1000;
   		};
-      if (this.score == 10000){
-          this.changeCatGirl();
-      } else if(this.score == 20000){
-          this.changeHornGirl();
-      } else if (this.score == 30000){
-          this.changePinkGirl();
-      } else if (this.score == 40000){
-          this.changePrincessGirl();
+      if (this.score === 10000){
+          this.changeChar('catgirl');
+      } else if(this.score === 20000){
+          this.changeChar('horn');
+      } else if (this.score === 30000){
+          this.changeChar('pink');
+      } else if (this.score === 40000){
+          this.changeChar('princess');
       }
   	};
-  	if ( key == 'down' ){
+  	if ( key === 'down' ){
   		this.y = this.y + 90;
   		if ( this.y > 400 ){
   			this.y = 400;
